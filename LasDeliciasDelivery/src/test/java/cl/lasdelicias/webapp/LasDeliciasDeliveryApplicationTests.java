@@ -1,10 +1,10 @@
-package cl.barrita.webapp;
+package cl.lasdelicias.webapp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BarritaDeliveryApplicationTests {
+class LasDeliciasDeliveryApplicationTests {
 
 	@Test
 	void contextLoads() {
