@@ -1,0 +1,28 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace ="loyout/service :: head">
+</head >
+<body>
+	<!-- Menu -->
+	<header th:replace ="loyout/service :: menu"></header>
+	
+	<!-- Present -->
+	<div class="container"> 
+	<br><br><br>
+	<!-- Status -->
+		<div th:replace ="object/status :: s_status"></div>
+		
+		<div class="container-fluid bg-1 text-center">
+			<br>
+	  		<br>
+	  		<h3 class="margin">Bienvenide</h3>
+	  		<br>
+	  		<img th:src="@{/img/icon/robot.png}" class="img-responsive img-circle margin" style="display:inline; max-width: 80%;" alt="Robot">
+	  		<h3>Soy AdareLoise</h3>
+	  	</div>
+	</div>
+	
+	<!-- Footer -->
+	<footer th:replace ="loyout/service :: footer"></footer>
+
+</body>
+</html>
