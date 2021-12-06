@@ -59,7 +59,7 @@ public class FacturaController {
 
 		if (cliente == null) {
 			flash.addFlashAttribute("error", "El cliente no existe en la base de datos");
-			return "redirect:/listar";
+			return "redirect:/cliente/listar";
 		}
 
 		Factura factura = new Factura();

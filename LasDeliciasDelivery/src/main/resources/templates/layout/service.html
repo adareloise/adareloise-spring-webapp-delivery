@@ -31,17 +31,17 @@
 						</li>
 						<li class="nav-item">
 							<a class="nav-link active" href="#about"
-						th:href="@{producto/listar}">Productos</a>
+						th:href="@{/producto/listar}">Productos</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active" href="#">Ventas</a>
+							<a class="nav-link active" href="#">Perfil</a>
 						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-								data-bs-toggle="dropdown" aria-expanded="false"> Perfil </a>
+								data-bs-toggle="dropdown" aria-expanded="false">Facturas</a>
 							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" href="#">Datos</a></li>
-								<li><a class="dropdown-item" href="#">Another action</a></li>
+								<li><a class="dropdown-item" th:href="@{/cliente/listar}">Clientes</a></li>
+								<li><a class="dropdown-item" href="#">Fecha</a></li>
 							</ul>
 						</li>
 					</ul>

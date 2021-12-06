@@ -1,0 +1,39 @@
+<html xmlns:th="http://www.thymeleaf.org" />
+
+<head th:replace="layout/service :: head"> </head >
+
+<body>
+	
+	<header th:replace="layout/service :: menu"></header>
+
+	<div class="container py-4">
+
+		<div class="text-center" th:fragment="producto">
+			<div class="card">
+				<br>
+				<img th:if="${#strings.length(producto.foto) > 0}" class="rounded mx-auto d-block"
+					style="display:inline;width:200;height:200;" th:src="@{'/producto/uploads/' + ${producto.foto}}" th:alt="${producto.foto}" />
+
+				<div class="card-body">
+					<ul class="list-group">
+						<li class="list-group-item active" th:text="${producto.nombre}"></li>
+						<li class="list-group-item" th:text="${producto.categoria}"></li>
+						<li class="list-group-item" th:text="${producto.precio}"></li>
+						<li class="list-group-item" th:text="${producto.disponibilidad}"></li>
+					</ul>
+					
+					<div>
+						<br>
+						<a href="#!" class="btn btn-primary">Agregar</a>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="layout/service :: footer"></footer>
+
+</body>
+
+</html>

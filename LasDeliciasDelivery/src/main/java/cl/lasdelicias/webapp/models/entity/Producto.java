@@ -26,6 +26,8 @@ public class Producto implements Serializable {
 	private String categoria;
 
 	private Double precio;
+	
+	private String disponibilidad;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "create_at")
@@ -85,7 +87,16 @@ public class Producto implements Serializable {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
+	
+	public String getDisponibilidad() {
+		return disponibilidad;
+	}
 
+	public void setDisponibilidad(String disponibilidad) {
+		this.disponibilidad = disponibilidad;
+	}
+
+	
 	private static final long serialVersionUID = 1L;
 
 }

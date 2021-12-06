@@ -1,8 +1,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/public :: head"></head>
+<head th:replace="layout/service :: head"></head>
 <body>
 
-	<header th:replace="layout/public :: header"></header>
+	<header th:replace="layout/service :: menu"></header>
 
 	<div class="container py-4">
 
@@ -17,7 +17,7 @@
 					</ul>
 				</div>
 
-				<form th:action="@{/form}" th:object="${cliente}" method="post"
+				<form th:action="@{/cliente/save}" th:object="${cliente}" method="post"
 					enctype="multipart/form-data">
 					<div class="form-group row">
 						<label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
@@ -74,6 +74,6 @@
 		</div>
 	</div>
 
-	<footer th:replace="layout/layout :: public"></footer>
+	<footer th:replace="layout/service :: footer"></footer>
 </body>
 </html>

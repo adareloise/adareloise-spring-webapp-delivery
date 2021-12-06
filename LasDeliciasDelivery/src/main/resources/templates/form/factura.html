@@ -1,9 +1,7 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/layout :: head"></head>
+<head th:replace="layout/service :: head"></head>
 <body>
-
-	<header th:replace="layout/layout :: header"></header>
+	<header th:replace="layout/service :: menu"></header>
 
 	<div class="container py-4">
 		<div class="card bg-light">
@@ -85,7 +83,8 @@
 		</div>
 	</div>
 
-	<footer th:replace="layout/layout :: footer"></footer>
+	<footer th:replace="layout/service :: footer"></footer>
+	
 	<script th:replace="factura/js/autocomplete-productos :: javascript"></script>
 </body>
 </html>

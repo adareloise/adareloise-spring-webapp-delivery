@@ -65,7 +65,7 @@ public class ClienteController {
 				.body(recurso);
 	}
 
-	@GetMapping(value = "/ver/{id}")
+	@GetMapping(value = "/object/{id}")
 	public String ver(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
 
 		Cliente cliente = clienteService.fetchByIdWithFacturas(id);
@@ -76,10 +76,10 @@ public class ClienteController {
 
 		model.put("cliente", cliente);
 		model.put("titulo", "Detalle cliente: " + cliente.getNombre());
-		return "ver";
+		return "object/cliente";
 	}
 
-	@RequestMapping(value = {"/listar", "/"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/listar"}, method = RequestMethod.GET)
 	public String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model,
 			Authentication authentication) {
 
@@ -101,10 +101,10 @@ public class ClienteController {
 		model.addAttribute("titulo", "Listado de clientes");
 		model.addAttribute("clientes", clientes);
 		model.addAttribute("page", pageRender);
-		return "listar";
+		return "serv/listar_clientes";
 	}
 
-	@RequestMapping(value = "/form")
+	@RequestMapping(value = "/create")
 	public String crear(Map<String, Object> model) {
 
 		Cliente cliente = new Cliente();
@@ -113,7 +113,7 @@ public class ClienteController {
 		return "form/cliente";
 	}
 
-	@RequestMapping(value = "/form/{id}")
+	@RequestMapping(value = "/edit/{id}")
 	public String editar(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
 
 		Cliente cliente = null;
@@ -133,7 +133,7 @@ public class ClienteController {
 		return "form/cliente";
 	}
 
-	@RequestMapping(value = "/form", method = RequestMethod.POST)
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String guardar(@Validated Cliente cliente, BindingResult result, Model model,
 			@RequestParam("file") MultipartFile foto, RedirectAttributes flash, SessionStatus status) {
 
@@ -172,7 +172,7 @@ public class ClienteController {
 		return "redirect:cliente/listar";
 	}
 
-	@RequestMapping(value = "/eliminar/{id}")
+	@RequestMapping(value = "/delete/{id}")
 	public String eliminar(@PathVariable(value = "id") Long id, RedirectAttributes flash) {
 
 		if (id > 0) {
