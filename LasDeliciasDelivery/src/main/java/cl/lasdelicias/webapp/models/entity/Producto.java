@@ -22,13 +22,17 @@ public class Producto implements Serializable {
 	private Long id;
 
 	private String nombre;
+	
+	private String categoria;
 
 	private Double precio;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "create_at")
 	private Date createAt;
-
+	
+	private String foto;
+	
 	@PrePersist
 	public void prePersist() {
 		createAt = new Date();
@@ -64,6 +68,22 @@ public class Producto implements Serializable {
 
 	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
+	}
+
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 
 	private static final long serialVersionUID = 1L;

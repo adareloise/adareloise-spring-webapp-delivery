@@ -33,7 +33,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import cl.lasdelicias.webapp.models.entity.Cliente;
 import cl.lasdelicias.webapp.models.service.IClienteService;
 import cl.lasdelicias.webapp.models.service.IUploadFileService;
-import cl.lasdelicias.webapp.util.PageRender;
+import cl.lasdelicias.webapp.util.paginator.PageRender;
 
 @Controller
 @SessionAttributes("cliente")

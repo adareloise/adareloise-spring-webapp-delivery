@@ -16,9 +16,9 @@
 	<!-- menu -->
 	<header th:fragment="menu">
 
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="#"><h3 class="text-orange">Las Deli | cias</h3 ></a>
+				<a class="navbar-brand" href="#"><h4 class="text-orange">Las Deli | cias</h4> </a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
 					aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -30,23 +30,24 @@
 							<a class="nav-link active" href="#">Pedidos</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active" href="#">Productos</a>
+							<a class="nav-link active" href="#about"
+						th:href="@{producto/listar}">Productos</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Facturas</a>
+							<a class="nav-link active" href="#">Ventas</a>
 						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
 								data-bs-toggle="dropdown" aria-expanded="false"> Perfil </a>
 							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" href="#">P</a></li>
+								<li><a class="dropdown-item" href="#">Datos</a></li>
 								<li><a class="dropdown-item" href="#">Another action</a></li>
 							</ul>
 						</li>
 					</ul>
 				</div>
 			</div>
-		</nav>
+		</nav >
 	</header>
 
 	<!-- Footer -->

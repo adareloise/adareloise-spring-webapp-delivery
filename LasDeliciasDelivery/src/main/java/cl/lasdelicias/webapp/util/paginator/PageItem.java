@@ -1,4 +1,4 @@
-package cl.lasdelicias.webapp.util;
+package cl.lasdelicias.webapp.util.paginator;
 
 public class PageItem {
 

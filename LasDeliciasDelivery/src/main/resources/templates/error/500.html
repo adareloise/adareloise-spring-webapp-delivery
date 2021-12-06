@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-	<meta charset="UTF-8">
-	<title>Ha ocurrido un error Oops!</title>
-</head>
+<head th:replace="loyout/public :: head"></head>
+
 
 <body>
-	<h3>Ha ocurrido un error Oops!</h3>
-	<div th:text="${error}"></div>
-	<div th:text="${message}"></div>
-	<div th:text="${status}"></div>
-	<div th:text="${timestamp}"></div>
-	<hr>
+	<header th:replace="loyout/public :: header"></header>
+	<br><br><br>
+
+	<div class="container py-4">
+		<h3>Ha ocurrido un error Oops!</h3>
+		<div th:text="${error}"></div>
+		<div th:text="${message}"></div>
+		<div th:text="${status}"></div>
+		<div th:text="${timestamp}"></div>
+		<hr>
+	</div>
+	
+	<footer th:replace="loyout/public :: footer"></footer>
+
 </body>
 
 </html>

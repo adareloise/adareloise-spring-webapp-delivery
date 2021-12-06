@@ -1,0 +1,52 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace ="loyout/service :: head">
+<body>
+
+	<header th:replace ="loyout/service :: menu"></header>
+
+	<div class="container py-4">
+
+		<div class="card bg-light">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+
+				<h4 class="card-title">
+					<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{producto/create}" class="btn btn-primary btn-xs">crear
+						Producto</a>
+				</h4>
+				<table class="table table-striped table-bordered">
+					<thead class="thead-inverse">
+						<tr>
+							<th sec:authorize="hasRole('ROLE_USER')">id</th>
+							<th>nombre</th>
+							<th>categoria</th>
+							<th>precio</th>
+							<th>fecha</th>
+							<th sec:authorize="hasRole('ROLE_ADMIN')">editar</th>
+							<th sec:authorize="hasRole('ROLE_ADMIN')">eliminar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="producto: ${productos}">
+							<td sec:authorize="hasRole('ROLE_USER')"><a class="btn btn-primary btn-xs" 
+							th:href="@{/producto/object/} + ${producto.id}" th:text="${producto.id}"></a></td>
+							<td th:text="${producto.nombre}"></td>
+							<td th:text="${producto.categoria}"></td>
+							<td th:text="${producto.precio}"></td>
+							<td th:text="${producto.createAt}"></td>
+							<td sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-primary btn-xs"
+								th:href="@{/producto/edit/} + ${producto.id}" th:text="'editar'"></a></td>
+							<td sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-danger btn-xs"
+								th:href="@{/producto/delete/} + ${producto.id}" th:text="'eliminar'"
+								onclick="return confirm('Estas seguro que quieres eliminar?');"></a></td>
+						</tr>
+					</tbody>
+				</table>
+				<nav th:replace="object/paginator_nav :: paginator"></nav>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace ="loyout/service :: footer"></footer>
+</body>
+</html>
