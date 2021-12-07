@@ -36,14 +36,14 @@ public class FacturaController {
 
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
-	@GetMapping("/ver/{id}")
+	@GetMapping("/object/{id}")
 	public String ver(@PathVariable(value = "id") Long id, Model model, RedirectAttributes flash) {
 
 		Factura factura = clienteService.fetchFacturaByIdWithClienteWhithItemFacturaWithProducto(id); // clienteService.findFacturaById(id);
 
 		if (factura == null) {
 			flash.addFlashAttribute("error", "La factura no existe en la base de datos!");
-			return "redirect:/listar";
+			return "redirect:/cliente/listar";
 		}
 
 		model.addAttribute("factura", factura);
@@ -51,7 +51,7 @@ public class FacturaController {
 		return "object/factura";
 	}
 
-	@GetMapping("/form/{clienteId}")
+	@GetMapping("/create/{clienteId}")
 	public String crear(@PathVariable(value = "clienteId") Long clienteId, Map<String, Object> model,
 			RedirectAttributes flash) {
 
@@ -59,7 +59,7 @@ public class FacturaController {
 
 		if (cliente == null) {
 			flash.addFlashAttribute("error", "El cliente no existe en la base de datos");
-			return "redirect:/cliente/listar";
+			return "redirect:/listar";
 		}
 
 		Factura factura = new Factura();
@@ -109,7 +109,7 @@ public class FacturaController {
 
 		flash.addFlashAttribute("success", "Factura creada con éxito!");
 
-		return "redirect:/ver/" + factura.getCliente().getId();
+		return "redirect:/cliente/object/" + factura.getCliente().getId();
 	}
 
 	@GetMapping("/eliminar/{id}")
@@ -120,7 +120,7 @@ public class FacturaController {
 		if (factura != null) {
 			clienteService.deleteFactura(id);
 			flash.addFlashAttribute("success", "Factura eliminada con éxito!");
-			return "redirect:/ver/" + factura.getCliente().getId();
+			return "redirect:/cliente/object/" + factura.getCliente().getId();
 		}
 		flash.addFlashAttribute("error", "La factura no existe en la base de datos, no se pudo eliminar!");
 

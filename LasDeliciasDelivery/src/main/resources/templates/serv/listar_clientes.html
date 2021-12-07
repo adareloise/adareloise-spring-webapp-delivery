@@ -36,7 +36,7 @@
 							<td th:text="${cliente.email}"></td>
 							<td th:text="${cliente.createAt}"></td>
 							<td sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-success btn-xs"
-								th:href="@{'/factura/form/' + ${cliente.id}}"
+								th:href="@{'/factura/create/' + ${cliente.id}}"
 								th:text="'crear factura'"></a></td>
 							<td sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-primary btn-xs"
 								th:href="@{/cliente/edit/} + ${cliente.id}" th:text="'editar'"></a></td>

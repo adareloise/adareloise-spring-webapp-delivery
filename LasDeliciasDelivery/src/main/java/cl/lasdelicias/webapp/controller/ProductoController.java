@@ -140,7 +140,7 @@ public class ProductoController {
 		Pageable pageRequest = PageRequest.of(page, 10);
 		Page<Producto> productos = productoService.findAll(pageRequest);
 		
-		PageRender<Producto> pageRender =  new PageRender<Producto>("/listar", productos);				
+		PageRender<Producto> pageRender =  new PageRender<Producto>("/producto/listar", productos);				
 		model.put("titulo", "Productos");
 		model.put("productos", productos);
 		model.put("page", pageRender);
