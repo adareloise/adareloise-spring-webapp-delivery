@@ -57,7 +57,7 @@
 
 				<h5 class="float-right">
 					Gran Total <span th:text="${factura.total}"
-						class="badge badge-secondary"></span>
+						class="badge bg-info text-dark"></span>
 				</h5>
 
 				<div class="card border-info mb-4" style="max-width: 20rem;">
@@ -71,8 +71,8 @@
 					</div>
 				</div>
 
-				<a th:href="@{'/ver/' + ${factura.cliente.id}}"
-					class="btn btn-light btn-xs">&laquo; volver</a>
+				<a th:href="@{'/cliente/object/' + ${factura.cliente.id}}"
+					class="btn btn-light btn-xs">&laquo; Volver</a>
 
 			</div>
 		</div>

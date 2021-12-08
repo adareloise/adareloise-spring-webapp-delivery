@@ -25,21 +25,29 @@
 				<div class="collapse navbar-collapse" id="navbarContent">
 				
 					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-						<li class="nav-item">
-							<a class="nav-link active" href="#">Pedidos</a>
+						<li  class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false">Pedidos</a>
+							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+								<li><a class="dropdown-item" href="#">En Curso</a></li>
+								<li><a class="dropdown-item" href="#">Finalizados</a></li>
+							</ul>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link active" href="#about"
-						th:href="@{/producto/listar}">Productos</a>
+						<li  class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false">Productos</a>
+							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+								<li><a class="dropdown-item" th:href="@{/producto/listar}">Fondos</a></li>
+								<li><a class="dropdown-item" href="#">Ingredientes</a></li>
+								<li><a class="dropdown-item" href="#">Bebidas</a></li>
+							</ul>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link active" href="#">Perfil</a>
-						</li>
+						
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-								data-bs-toggle="dropdown" aria-expanded="false">Facturas</a>
+								data-bs-toggle="dropdown" aria-expanded="false">Ventas</a>
 							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" th:href="@{/cliente/listar}">Clientes</a></li>
+								<li><a class="dropdown-item" th:href="@{/cliente/listar}">Cliente</a></li>
 								<li><a class="dropdown-item" href="#">Fecha</a></li>
 							</ul>
 						</li>
@@ -47,6 +55,8 @@
 				</div>
 			</div>
 		</nav >
+		
+		<div th:replace="object/status :: status"></div >
 	</header>
 
 	<!-- Footer -->
