@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,11 +28,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import cl.lasdelicias.webapp.models.entity.Bebida;
+import cl.lasdelicias.webapp.models.entity.Fondo;
 import cl.lasdelicias.webapp.models.entity.Producto;
 import cl.lasdelicias.webapp.models.service.IProductoService;
 import cl.lasdelicias.webapp.models.service.IUploadFileService;
 import cl.lasdelicias.webapp.util.paginator.PageRender;
 
+@Secured("ROLE_ADMIN")
 @Controller
 @RequestMapping("/producto")
 @SessionAttributes("producto")
@@ -79,6 +83,22 @@ public class ProductoController {
 		model.addAttribute("producto", producto);
 		model.addAttribute("titulo", "Crear Producto");
 		return "form/producto";
+	}
+	
+	@GetMapping("/create/fondo")
+	public String crearFondo(Model model){
+		Fondo fondo = new Fondo();
+		model.addAttribute("fondo", fondo);
+		model.addAttribute("titulo", "Crear Fondo");
+		return "form/producto-fondo";
+	}
+	
+	@GetMapping("/create/bebida")
+	public String crearBebida(Model model){
+		Bebida bebida = new Bebida();
+		model.addAttribute("bebida", bebida);
+		model.addAttribute("titulo", "Crear bebida");
+		return "form/producto-bebida";
 	}
 	
 	@PostMapping("/save")

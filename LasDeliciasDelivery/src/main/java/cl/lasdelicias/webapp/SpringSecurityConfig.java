@@ -3,6 +3,7 @@ package cl.lasdelicias.webapp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import cl.lasdelicias.webapp.auth.handler.LoginSuccessHandler;
 
+@EnableGlobalMethodSecurity(securedEnabled=true)
 @Configuration
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 
@@ -22,11 +24,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http.authorizeRequests().antMatchers("/", "/index", "/home", "/service", "/img/**", "/css/**", "/js/**", "/contact/**", 
-				"/product/uploads/**").permitAll()
-		.antMatchers("/service/**").hasAnyRole("ADMIN")
-		.antMatchers("/cliente/**").hasAnyRole("ADMIN")
+				"/product/uploads/**","/product/object/**").permitAll()
+		
+		/*.antMatchers("/cliente/**").hasAnyRole("ADMIN")
 		.antMatchers("/factura/**").hasAnyRole("ADMIN")
-		.antMatchers("/producto/**").hasAnyRole("ADMIN")
+		.antMatchers("/producto/**").hasAnyRole("ADMIN") */
+		
 		.anyRequest().authenticated()
 		.and()
 		    .formLogin()
@@ -48,6 +51,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		build.inMemoryAuthentication()
 		.withUser(users.username("admin").password("12345").roles("ADMIN", "USER"))
-		.withUser(users.username("aluisa").password("abcd010203").roles("ADMIN","USER"));
+		.withUser(users.username("avenegas").password("abcd010203").roles("ADMIN","USER"))
+		.withUser(users.username("dutreras").password("abcd010203").roles("USER"));
 	}
 }
