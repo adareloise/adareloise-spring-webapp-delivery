@@ -17,6 +17,8 @@ import javax.persistence.Table;
 @DiscriminatorValue("F")
 public class Fondo extends Producto {
 	
+	private String descripcion;
+	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "producto_id")
 	private List<Ingrediente> ingredientes;
@@ -36,6 +38,14 @@ public class Fondo extends Producto {
 	
 	public void addIngrediente(Ingrediente ingrediente) {
 		ingredientes.add(ingrediente);
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 }
