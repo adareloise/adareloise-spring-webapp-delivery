@@ -16,6 +16,8 @@
 					<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/cliente/create}"
 						class="btn btn-success btn-xs">Crear
 						cliente</a>
+					<a class="btn btn-outline-success btn-xs float-end mx-1" th:href="@{'/cliente/listar'(format=xml)}">XML</a>
+					<a class="btn btn-outline-warning btn-xs float-end mx-1" th:href="@{'/cliente/listar'(format=json)}">JSON</a>
 				</h4>
 				<div class="table-scrollable">
 				<table class="table table-hover">
