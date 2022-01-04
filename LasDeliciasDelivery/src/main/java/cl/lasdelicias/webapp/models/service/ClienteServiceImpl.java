@@ -14,7 +14,8 @@ import cl.lasdelicias.webapp.models.dao.IProductoDao;
 import cl.lasdelicias.webapp.models.entity.Cliente;
 import cl.lasdelicias.webapp.models.entity.Factura;
 import cl.lasdelicias.webapp.models.entity.Producto;
-
+import cl.lasdelicias.webapp.models.repository.IBebidaRepository;
+import cl.lasdelicias.webapp.models.repository.IFondoRepository;
 
 @Service
 public class ClienteServiceImpl implements IClienteService{
@@ -27,7 +28,7 @@ public class ClienteServiceImpl implements IClienteService{
 	
 	@Autowired
 	private IFacturaDao facturaDao;
-	
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<Cliente> findAll() {
@@ -100,6 +101,4 @@ public class ClienteServiceImpl implements IClienteService{
 	public Factura fetchFacturaByIdWithClienteWhithItemFacturaWithProducto(Long id) {
 		return facturaDao.fetchByIdWithClienteWhithItemFacturaWithProducto(id);
 	}
-	
-	
 }

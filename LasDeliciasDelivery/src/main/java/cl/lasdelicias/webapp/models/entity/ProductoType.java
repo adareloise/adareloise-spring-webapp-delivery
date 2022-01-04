@@ -1,5 +1,5 @@
 package cl.lasdelicias.webapp.models.entity;
 
-public class User {
-
+public enum ProductoType {
+	FONDO, BEBIDA
 }
