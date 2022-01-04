@@ -31,6 +31,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import cl.lasdelicias.webapp.models.entity.Bebida;
 import cl.lasdelicias.webapp.models.entity.Fondo;
 import cl.lasdelicias.webapp.models.entity.Producto;
+import cl.lasdelicias.webapp.models.entity.ProductoType;
 import cl.lasdelicias.webapp.models.service.IProductoService;
 import cl.lasdelicias.webapp.models.service.IUploadFileService;
 import cl.lasdelicias.webapp.util.paginator.PageRender;
@@ -77,28 +78,20 @@ public class ProductoController {
 		return "object/producto";
 	}
 	
-	@GetMapping("/create")
-	public String crear(Model model){
-		Producto producto = new Producto();
-		model.addAttribute("producto", producto);
-		model.addAttribute("titulo", "Crear Producto");
-		return "form/producto";
-	}
-	
 	@GetMapping("/create/fondo")
 	public String crearFondo(Model model){
-		Fondo fondo = new Fondo();
-		model.addAttribute("fondo", fondo);
+		Producto producto = new Fondo();
+		model.addAttribute("producto", producto);
 		model.addAttribute("titulo", "Crear Fondo");
-		return "form/producto-fondo";
+		return "form/fondo";
 	}
 	
 	@GetMapping("/create/bebida")
 	public String crearBebida(Model model){
-		Bebida bebida = new Bebida();
-		model.addAttribute("bebida", bebida);
+		Producto producto = new Bebida();
+		model.addAttribute("producto", producto);
 		model.addAttribute("titulo", "Crear bebida");
-		return "form/producto-bebida";
+		return "form/bebida";
 	}
 	
 	@PostMapping("/save")
@@ -106,7 +99,7 @@ public class ProductoController {
 			RedirectAttributes flash, SessionStatus status) {		
 		
 		if(result.hasErrors()) {
-			model.addAttribute("titulo", "producto de Obra");
+			model.addAttribute("titulo", "Producto");
 			return "redirect:/producto/listar";
 		}
 		
@@ -135,7 +128,79 @@ public class ProductoController {
 		status.setComplete();
 		flash.addFlashAttribute("success", mensajeFlash);
 		return "redirect:/producto/listar";
-	}  
+	}
+	
+	@PostMapping("/save/fondo")
+	public String guardarFondo(@Validated Producto producto, BindingResult result, Model model, @RequestParam("file") MultipartFile foto,
+			RedirectAttributes flash, SessionStatus status) {		
+						
+		if(result.hasErrors()) {
+			model.addAttribute("titulo", "producto");
+			return "redirect:/producto/listar/fondos";
+		}
+					
+		if (!foto.isEmpty()) {
+
+			if (producto.getId() != null && producto.getId() > 0 && producto.getFoto() != null
+					&& producto.getFoto().length() > 0) {
+
+				uploadFileService.delete(producto.getFoto());
+			}
+
+			String uniqueFilename = null;
+			try {
+				uniqueFilename = uploadFileService.copy(foto);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			flash.addFlashAttribute("info", "Has subido correctamente '" + uniqueFilename + "'");
+
+			producto.setFoto(uniqueFilename);
+		}
+		producto.setType(ProductoType.FONDO);
+		String mensajeFlash = (producto.getId() != null) ? "producto editado con éxito!" : "producto creado con éxito!";			
+		productoService.saveFondo(producto);
+		status.setComplete();
+		flash.addFlashAttribute("success", mensajeFlash);
+		return "redirect:/producto/listar/fondos";
+	}
+	
+	@PostMapping("/save/bebida")
+	public String guardarBebida(@Validated Producto producto, BindingResult result, Model model, @RequestParam("file") MultipartFile foto,
+			RedirectAttributes flash, SessionStatus status) {		
+		
+		if(result.hasErrors()) {
+			model.addAttribute("titulo", "bebidas");
+			return "redirect:/producto/listar/bebidas";
+		}
+		
+		if (!foto.isEmpty()) {
+
+			if (producto.getId() != null && producto.getId() > 0 && producto.getFoto() != null
+					&& producto.getFoto().length() > 0) {
+
+				uploadFileService.delete(producto.getFoto());
+			}
+
+			String uniqueFilename = null;
+			try {
+				uniqueFilename = uploadFileService.copy(foto);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			flash.addFlashAttribute("info", "Has subido correctamente '" + uniqueFilename + "'");
+
+			producto.setFoto(uniqueFilename);
+		}
+		producto.setType(ProductoType.BEBIDA);
+		String mensajeFlash = (producto.getId() != null) ? "producto editado con éxito!" : "producto creado con éxito!";			
+		productoService.saveBebida(producto);
+		status.setComplete();
+		flash.addFlashAttribute("success", mensajeFlash);
+		return "redirect:/producto/listar/bebidas";
+	}
 			
 	@GetMapping("/edit/{id}")
 	public ModelAndView editar(@PathVariable(value="id") Long id, RedirectAttributes flash) {
@@ -153,9 +218,43 @@ public class ProductoController {
 		
 		return mv;
 	}
+	
+	@GetMapping("/edit/fondo/{id}")
+	public ModelAndView editarFondo(@PathVariable(value="id") Long id, RedirectAttributes flash) {
+		Producto producto = null;
+		ModelAndView mv = new ModelAndView("form/fondo");
+
+		if(id > 0) {
+			producto = productoService.findOneFondo(id);
+		} else {
+			flash.addFlashAttribute("error", "El ID de la obra no puede ser cero!");
+			return new ModelAndView("redirect:/gallery/listar");
+		}
+		mv.addObject("producto", producto);
+		mv.addObject("titulo", "Editar producto");
+		
+		return mv;
+	}
+	
+	@GetMapping("/edit/bebida/{id}")
+	public ModelAndView editarBebida(@PathVariable(value="id") Long id, RedirectAttributes flash) {
+		Producto producto = null;
+		ModelAndView mv = new ModelAndView("form/bebida");
+
+		if(id > 0) {
+			producto = productoService.findOneBebida(id);
+		} else {
+			flash.addFlashAttribute("error", "El ID de la obra no puede ser cero!");
+			return new ModelAndView("redirect:/gallery/listar");
+		}
+		mv.addObject("producto", producto);
+		mv.addObject("titulo", "Editar producto");
+		
+		return mv;
+	}
 		
 	@RequestMapping(value = "/listar", method=RequestMethod.GET)
-	public String galeria(@RequestParam(name="page", defaultValue="0") int page, Map<String, Object> model) {
+	public String listar(@RequestParam(name="page", defaultValue="0") int page, Map<String, Object> model) {
 		
 		Pageable pageRequest = PageRequest.of(page, 10);
 		Page<Producto> productos = productoService.findAll(pageRequest);
@@ -168,6 +267,35 @@ public class ProductoController {
 		return "serv/listar_productos";
 	}
 	
+	@RequestMapping(value = "/listar/fondos", method=RequestMethod.GET)
+	public String listarFondos(@RequestParam(name="page", defaultValue="0") int page, Map<String, Object> model) {
+		
+		Pageable pageRequest = PageRequest.of(page, 10);
+		Page<Fondo> fondos = productoService.findAllFondo(pageRequest);
+		
+		PageRender<Fondo> pageRender =  new PageRender<Fondo>("/producto/listar/fondos", fondos);				
+		model.put("titulo", "Fondos");
+		model.put("fondos", fondos);
+		model.put("page", pageRender);
+		
+		return "serv/listar_fondos";
+	}
+	
+	@RequestMapping(value = "/listar/bebidas", method=RequestMethod.GET)
+	public String listarBebidas(@RequestParam(name="page", defaultValue="0") int page, Map<String, Object> model) {
+		
+		
+		Pageable pageRequest = PageRequest.of(page, 10);
+		Page<Bebida> bebidas = productoService.findAllBebida(pageRequest);
+		
+		PageRender<Bebida> pageRender =  new PageRender<Bebida>("/producto/listar/bebidas", bebidas);				
+		model.put("titulo", "Bebidas Y Jugos");
+		model.put("bebidas", bebidas);
+		model.put("page", pageRender);
+		
+		return "serv/listar_bebidas";
+	}
+			
 	@GetMapping(value="/delete/{id}")
 	public String eliminar(@PathVariable(value="id") Long id, RedirectAttributes flash) {		
 		if(id > 0) {

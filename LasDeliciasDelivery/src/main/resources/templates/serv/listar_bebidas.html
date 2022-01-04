@@ -1,0 +1,62 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace ="layout/service :: head">
+<body>
+
+	<header th:replace ="layout/service :: menu"></header>
+
+	<div class="container py-4">
+		
+		<div class="card bg-light">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+
+				<h4 class="card-title">
+					<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/producto/create/bebida}" class="btn btn-success btn-xs">Crear
+						Bebida</a>
+				</h4>
+				<div class="table-scrollable">
+					<table class="table table-hover">
+					<thead class="thead-inverse">
+						<tr>
+							<th sec:authorize="hasRole('ROLE_USER')">ID</th>
+							<th>Nombre</th>
+							<th>Categoria</th>
+							<th>Precio</th>
+							<th>Fecha</th>
+							<th sec:authorize="hasRole('ROLE_ADMIN')">editar</th>
+							<th sec:authorize="hasRole('ROLE_ADMIN')">eliminar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="bebida: ${bebidas}">
+							<td sec:authorize="hasRole('ROLE_USER')"><a class="btn btn-dark btn-xs" 
+							th:href="@{/producto/object/} + ${bebida.id}" th:text="${bebida.id}"></a></td>
+							<td th:text="${bebida.nombre}"></td>
+							<td th:text="${bebida.categoria}"></td>
+							<td th:text="${bebida.precio}"></td>
+							<td th:text="${bebida.createAt}"></td>
+							<td sec:authorize="hasRole('ROLE_ADMIN')">
+								<a th:href="@{/producto/edit/bebida/} + ${bebida.id}"> 
+									<img th:src="@{/img/icon/editar.png}" class="img-responsive img-circle margin"
+										style="display:inline" alt="edit" width="30" height="30"> 
+								</a>
+							</td>
+							<td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/producto/delete/} + ${bebida.id}" 
+								onclick="return confirm('Estas seguro que quieres eliminar?');">
+									<img th:src="@{/img/icon/eliminar.png}" class="img-responsive img-circle margin"
+										style="display:inline" alt="delete" width="30" height="30">
+								</a>
+									
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+				<nav th:replace="object/paginator_nav :: paginator"></nav>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace ="layout/service :: footer"></footer>
+</body>
+</html>

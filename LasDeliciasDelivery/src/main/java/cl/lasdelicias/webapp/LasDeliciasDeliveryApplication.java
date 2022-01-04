@@ -4,7 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import cl.lasdelicias.webapp.models.dao.IProductoDao;
+import cl.lasdelicias.webapp.models.repository.IBebidaRepository;
+import cl.lasdelicias.webapp.models.repository.IFondoRepository;
 
 @SpringBootApplication
 public class LasDeliciasDeliveryApplication implements CommandLineRunner{

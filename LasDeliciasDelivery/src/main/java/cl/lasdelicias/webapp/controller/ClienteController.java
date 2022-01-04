@@ -194,5 +194,4 @@ public class ClienteController {
 		}
 		return "redirect:/cliente/listar";
 	}
-	
 }

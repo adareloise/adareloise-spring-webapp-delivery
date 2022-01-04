@@ -4,8 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,12 +17,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Range;
 
 @Entity
 @Table(name = "productos")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "PRODUCT_TYPE")
-public class Producto implements Serializable {
+public abstract class Producto implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +36,10 @@ public class Producto implements Serializable {
 	@NotEmpty
 	private String categoria;
 	
-	@NotEmpty
+	@Enumerated(value = EnumType.STRING)
+ 	private ProductoType type;
+	
+	@Range(min=0, max=90)
 	private Double precio;
 	
 	private String disponibilidad;
@@ -44,6 +50,24 @@ public class Producto implements Serializable {
 	
 	private String foto;
 	
+	public Producto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Producto(Long id, @NotEmpty String nombre, @NotEmpty String categoria, ProductoType type,
+			@Range Double precio, String disponibilidad, Date createAt, String foto) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.categoria = categoria;
+		this.type = type;
+		this.precio = precio;
+		this.disponibilidad = disponibilidad;
+		this.createAt = createAt;
+		this.foto = foto;
+	}
+
 	@PrePersist
 	public void prePersist() {
 		createAt = new Date();
@@ -63,6 +87,14 @@ public class Producto implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public ProductoType getType() {
+		return type;
+	}
+
+	public void setType(ProductoType type) {
+		this.type = type;
 	}
 
 	public Double getPrecio() {
@@ -104,8 +136,6 @@ public class Producto implements Serializable {
 	public void setDisponibilidad(String disponibilidad) {
 		this.disponibilidad = disponibilidad;
 	}
-
 	
 	private static final long serialVersionUID = 1L;
-
 }
