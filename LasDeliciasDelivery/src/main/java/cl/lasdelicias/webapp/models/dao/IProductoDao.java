@@ -2,6 +2,7 @@ package cl.lasdelicias.webapp.models.dao;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -9,6 +10,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import cl.lasdelicias.webapp.models.entity.Bebida;
 import cl.lasdelicias.webapp.models.entity.Fondo;
 import cl.lasdelicias.webapp.models.entity.Producto;
+import org.springframework.data.domain.Pageable;
+
 
 @NoRepositoryBean
 public interface IProductoDao extends PagingAndSortingRepository<Producto, Long>{
@@ -19,9 +22,9 @@ public interface IProductoDao extends PagingAndSortingRepository<Producto, Long>
 	public List<Producto> findByNombreLikeIgnoreCase(String term);
 	
 	@Query("SELECT p FROM Producto p WHERE p.type = 'FONDO' ")
-	public List<Fondo> findByFondo();
+	public Page<Fondo> findByFondo(Pageable pageable);
 	
 	@Query("SELECT p FROM Producto p WHERE p.type = 'BEBIDA' ")
-	public List<Bebida> findByBebida();
+	public Page<Bebida> findByBebida(Pageable pageable);
 
 }

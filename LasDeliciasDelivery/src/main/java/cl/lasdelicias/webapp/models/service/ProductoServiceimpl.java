@@ -72,34 +72,6 @@ public class ProductoServiceimpl implements IProductoService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Fondo> findByFondo() {
-		return fondoRepo.findByFondo();
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public List<Bebida> findByBebida() {
-		return bebidaRepo.findByBebida();
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public Page<Fondo> findAllFondo(Pageable peageble) {
-		List<Fondo> fondos = findByFondo();
-		Page<Fondo> page = new PageImpl<>(fondos, peageble, 0);
-		return page;
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public Page<Bebida> findAllBebida(Pageable peageble) {
-		List<Bebida> bebidas = findByBebida();
-		Page<Bebida> page = new PageImpl<>(bebidas, peageble, 0);		
-		return page;
-	}
-
-	@Override
-	@Transactional(readOnly = true)
 	public Producto findOneFondo(Long id) {
 		return fondoRepo.findById(id).orElse(null);
 	}
@@ -108,6 +80,16 @@ public class ProductoServiceimpl implements IProductoService {
 	@Transactional(readOnly = true)
 	public Producto findOneBebida(Long id) {
 		return bebidaRepo.findById(id).orElse(null);
+	}
+
+	@Override
+	public Page<Fondo> findByFondo(Pageable peageble) {
+		return fondoRepo.findByFondo(peageble);
+	}
+
+	@Override
+	public Page<Bebida> findByBebida(Pageable peageble) {
+		return bebidaRepo.findByBebida(peageble);
 	}
 	
 }
