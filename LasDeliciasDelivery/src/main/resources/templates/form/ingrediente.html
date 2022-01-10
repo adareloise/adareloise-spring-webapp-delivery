@@ -38,24 +38,41 @@
 					</div>
 
 					<div class="row g-3 align-items-center">
-						<label for="precio_compra" class="col-form-label">Precio de compra</label>
 						<div class="col-auto">
+							<label for="precio_compra" class="col-form-label">Precio de compra</label>
 							<input type="text" th:field="*{precio_compra}" class="form-control"
 								th:errorclass="'form-control alert-danger'" /> <small class="form-text text-danger"
 								th:if="${#fields.hasErrors('precio_compra')}" th:errors="*{precio_compra}"></small>
 						</div>
 					</div>
-
+					
 					<div class="row g-3 align-items-center">
-						<label for="dispnibilidad" class="col-form-label">Disponibilidad</label>
 						<div class="col-auto">
+							<label for="cantidad" class="col-form-label">Cantidad</label>
+							<input type="text" th:field="*{cantidad}" class="form-control"
+								th:errorclass="'form-control alert-danger'" /> <small class="form-text text-danger"
+								th:if="${#fields.hasErrors('cantidad')}" th:errors="*{cantidad}"></small>
+						</div>	
+						<div class="col-auto">
+							<label for="medida" class="col-form-label">Medida</label>
+							<select th:field="*{medida}" class="form-select">
+								<option th:value="'u'" th:text="unidad"></option>
+								<option th:value="'g'" th:text="g"></option>
+								<option th:value="'kg'" th:text="kg"></option>
+								<option th:value="'cc'" th:text="cc"></option>
+							</select>
+						</div>
+						
+						<div class="col-auto">
+							<label for="dispnibilidad" class="col-form-label">Disponibilidad</label>
 							<select th:field="*{disponibilidad}" class="form-select">
 								<option th:value="'Si'" th:text="Si"></option>
 								<option th:value="'No'" th:text="No"></option>
 							</select>
 						</div>
+						
 					</div>
-
+				
 					<div class="mb-3 py-4">
 						<div class="col-auto">
 							<input type="submit" th:value="${titulo}" class="btn btn-secondary" />

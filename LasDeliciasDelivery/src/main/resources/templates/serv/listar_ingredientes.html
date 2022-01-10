@@ -21,7 +21,9 @@
 							<th sec:authorize="hasRole('ROLE_USER')">ID</th>
 							<th>Nombre</th>
 							<th>Categoria</th>
-							<th>Precio Compra</th>
+							<th>Precio</th>
+							<th>Cantidad</th>
+							<th>Medida</th>
 							<th>Fecha</th>
 							<th sec:authorize="hasRole('ROLE_ADMIN')">editar</th>
 							<th sec:authorize="hasRole('ROLE_ADMIN')">eliminar</th>
@@ -34,6 +36,8 @@
 							<td th:text="${ingrediente.nombre}"></td>
 							<td th:text="${ingrediente.categoria}"></td>
 							<td th:text="${ingrediente.precio_compra}"></td>
+							<td th:text="${ingrediente.cantidad}"></td>
+							<td th:text="${ingrediente.medida}"></td>
 							<td th:text="${ingrediente.createAt}"></td>
 							<td sec:authorize="hasRole('ROLE_ADMIN')">
 								<a th:href="@{/ingredientes/edit/} + ${ingrediente.id}"> 

@@ -33,8 +33,13 @@ public class Ingrediente  implements Serializable{
 	
 	private String categoria;
 	
+	private String medida;
+	
 	@Range(min=0, max=10000000)
-	private Double precio_compra;
+	private int cantidad;
+	
+	@Range(min=0, max=10000000)
+	private int precio_compra;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "create_at")
@@ -89,11 +94,29 @@ public class Ingrediente  implements Serializable{
 		this.categoria = categoria;
 	}
 
-	public Double getPrecio_compra() {
+	public int getPrecio_compra() {
 		return precio_compra;
 	}
 
-	public void setPrecio_compra(Double precio_compra) {
+	public void setPrecio_compra(int precio_compra) {
 		this.precio_compra = precio_compra;
 	}
+
+	public String getMedida() {
+		return medida;
+	}
+
+	public void setMedida(String medida) {
+		this.medida = medida;
+	}
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	
 }
