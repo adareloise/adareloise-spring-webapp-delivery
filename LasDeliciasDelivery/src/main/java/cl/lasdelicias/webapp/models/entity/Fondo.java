@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.validator.constraints.Range;
+
 @Entity(name = "Fondo")
 @Table(name = "fondos")
 public class Fondo extends Producto {
@@ -25,7 +27,7 @@ public class Fondo extends Producto {
 	public Fondo() {}
 	
 	public Fondo(Long id, @NotEmpty String nombre, @NotEmpty String categoria, ProductoType type,
-			@NotEmpty Double precio, String disponibilidad, Date createAt, String foto, String descripcion) {
+			@Range Integer precio, String disponibilidad, Date createAt, String foto, String descripcion) {
 		
 		super(id, nombre, categoria, type, precio, disponibilidad, 
 				createAt, foto);

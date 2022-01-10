@@ -1,5 +1,6 @@
 package cl.lasdelicias.webapp.controller;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ public class IndexController {
 		return "view/index";
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/service")
 	public String indexServ(Model model){
 		return "serv/index";

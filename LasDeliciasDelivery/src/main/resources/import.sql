@@ -1,4 +1,5 @@
 -- Populate tables Clientes
+
 INSERT INTO clientes (nombre, apellido, email, create_at, foto) VALUES('Ana', 'Venegas', 'avenegas_barrita@gmail.com', NOW(), '');
 INSERT INTO clientes (nombre, apellido, email, create_at, foto) VALUES('David', 'Utreras', 'dutreras69@gmail.com', NOW(), '');
 
@@ -13,4 +14,4 @@ INSERT INTO `users` (username, password, enabled) VALUES ('admin','$2a$10$DOMDxj
 -- usuarios con sus roles
 INSERT INTO `authorities` (user_id, authority) VALUES (1,'ROLE_USER');
 INSERT INTO `authorities` (user_id, authority) VALUES (2,'ROLE_ADMIN');
-INSERT INTO `authorities` (user_id, authority) VALUES (3,'ROLE_CLIENTE');
+INSERT INTO `authorities` (user_id, authority) VALUES (2,'ROLE_USER');

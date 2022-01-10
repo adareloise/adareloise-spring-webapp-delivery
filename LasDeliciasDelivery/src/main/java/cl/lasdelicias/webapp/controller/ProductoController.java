@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
@@ -95,7 +97,7 @@ public class ProductoController {
 	}
 	
 	@PostMapping("/save")
-	public String guardar(@Validated Producto producto, BindingResult result, Model model, @RequestParam("file") MultipartFile foto,
+	public String guardar(@Valid Producto producto, BindingResult result, Model model, @RequestParam("file") MultipartFile foto,
 			RedirectAttributes flash, SessionStatus status) {		
 		
 		if(result.hasErrors()) {
@@ -131,14 +133,14 @@ public class ProductoController {
 	}
 	
 	@PostMapping("/save/fondo")
-	public String guardarFondo(@Validated Producto producto, BindingResult result, Model model, @RequestParam("file") MultipartFile foto,
-			RedirectAttributes flash, SessionStatus status) {		
+	public String guardarFondo(@Valid Producto producto,BindingResult result, Model model, @RequestParam("file") MultipartFile foto,
+								RedirectAttributes flash, SessionStatus status) {		
 						
 		if(result.hasErrors()) {
 			model.addAttribute("titulo", "producto");
 			return "redirect:/producto/listar/fondos";
 		}
-					
+		
 		if (!foto.isEmpty()) {
 
 			if (producto.getId() != null && producto.getId() > 0 && producto.getFoto() != null
@@ -158,8 +160,9 @@ public class ProductoController {
 
 			producto.setFoto(uniqueFilename);
 		}
-		producto.setType(ProductoType.FONDO);
+		
 		String mensajeFlash = (producto.getId() != null) ? "producto editado con éxito!" : "producto creado con éxito!";			
+		producto.setType(ProductoType.FONDO);
 		productoService.saveFondo(producto);
 		status.setComplete();
 		flash.addFlashAttribute("success", mensajeFlash);
@@ -167,13 +170,15 @@ public class ProductoController {
 	}
 	
 	@PostMapping("/save/bebida")
-	public String guardarBebida(@Validated Producto producto, BindingResult result, Model model, @RequestParam("file") MultipartFile foto,
+	public String guardarBebida(@Valid Producto producto, BindingResult result, Model model, @RequestParam("file") MultipartFile foto,
 			RedirectAttributes flash, SessionStatus status) {		
 		
 		if(result.hasErrors()) {
 			model.addAttribute("titulo", "bebidas");
 			return "redirect:/producto/listar/bebidas";
 		}
+		
+		producto.setType(ProductoType.BEBIDA);
 		
 		if (!foto.isEmpty()) {
 
@@ -194,7 +199,7 @@ public class ProductoController {
 
 			producto.setFoto(uniqueFilename);
 		}
-		producto.setType(ProductoType.BEBIDA);
+		
 		String mensajeFlash = (producto.getId() != null) ? "producto editado con éxito!" : "producto creado con éxito!";			
 		productoService.saveBebida(producto);
 		status.setComplete();
@@ -270,8 +275,8 @@ public class ProductoController {
 	@RequestMapping(value = "/listar/fondos", method=RequestMethod.GET)
 	public String listarFondos(@RequestParam(name="page", defaultValue="0") int page, Map<String, Object> model) {
 		
-		Pageable pageRequest = PageRequest.of(page, 10);
-		Page<Fondo> fondos = productoService.findAllFondo(pageRequest);
+		Pageable pageRequest = PageRequest.of(page, 8);
+		Page<Fondo> fondos = productoService.findByFondo(pageRequest);
 		
 		PageRender<Fondo> pageRender =  new PageRender<Fondo>("/producto/listar/fondos", fondos);				
 		model.put("titulo", "Fondos");
@@ -286,7 +291,7 @@ public class ProductoController {
 		
 		
 		Pageable pageRequest = PageRequest.of(page, 10);
-		Page<Bebida> bebidas = productoService.findAllBebida(pageRequest);
+		Page<Bebida> bebidas = productoService.findByBebida(pageRequest);
 		
 		PageRender<Bebida> pageRender =  new PageRender<Bebida>("/producto/listar/bebidas", bebidas);				
 		model.put("titulo", "Bebidas Y Jugos");
@@ -298,17 +303,26 @@ public class ProductoController {
 			
 	@GetMapping(value="/delete/{id}")
 	public String eliminar(@PathVariable(value="id") Long id, RedirectAttributes flash) {		
+		String redirect = null;
+		
 		if(id > 0) {
 			Producto producto = productoService.findOne(id);
 			
+			if(producto.getType() == ProductoType.FONDO) {
+				redirect = "redirect:/producto/listar/fondo";
+			}else {
+				redirect = "redirect:/producto/listar/bebida";
+			}
+			
 			productoService.delete(id);
 			flash.addFlashAttribute("success", "Producto eliminado con éxito!");
-
+			
 			if (uploadFileService.delete(producto.getFoto())) {
 				flash.addFlashAttribute("info", "Foto " + producto.getFoto() + " eliminada con exito!");
 			}
 		}
-		return "redirect:/producto/listar";
+		
+		return redirect;
 	}
 	
 }

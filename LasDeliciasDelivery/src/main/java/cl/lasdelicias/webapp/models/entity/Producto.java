@@ -17,7 +17,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Range;
 
@@ -39,8 +38,8 @@ public abstract class Producto implements Serializable {
 	@Enumerated(value = EnumType.STRING)
  	private ProductoType type;
 	
-	@Range(min=0, max=90)
-	private Double precio;
+	@Range(min=0, max=100000)
+	private Integer precio;
 	
 	private String disponibilidad;
 
@@ -56,7 +55,7 @@ public abstract class Producto implements Serializable {
 	}
 
 	public Producto(Long id, @NotEmpty String nombre, @NotEmpty String categoria, ProductoType type,
-			@Range Double precio, String disponibilidad, Date createAt, String foto) {
+			@Range Integer precio, String disponibilidad, Date createAt, String foto) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -97,11 +96,11 @@ public abstract class Producto implements Serializable {
 		this.type = type;
 	}
 
-	public Double getPrecio() {
+	public Integer getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(Double precio) {
+	public void setPrecio(Integer precio) {
 		this.precio = precio;
 	}
 

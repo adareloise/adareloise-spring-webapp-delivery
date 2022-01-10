@@ -15,10 +15,6 @@ public interface IProductoService {
 	
 	public Page<Producto> findAll(Pageable peageble);
 
-	public Page<Fondo> findAllFondo(Pageable peageble);
-	
-	public Page<Bebida> findAllBebida(Pageable peageble);
-	
 	public void save(Producto producto);
 
 	public void saveFondo(Producto fondo);
@@ -33,8 +29,8 @@ public interface IProductoService {
 	
 	public void delete(Long id);
 	
-	public List<Fondo> findByFondo();
+	public Page<Fondo> findByFondo(Pageable peageble);
 	
-	public List<Bebida> findByBebida();
+	public Page<Bebida> findByBebida(Pageable peageble);
 	
 }

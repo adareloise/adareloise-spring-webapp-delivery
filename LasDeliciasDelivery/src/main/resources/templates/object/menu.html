@@ -1,0 +1,39 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace ="layout/public :: head">
+</head >
+<body>
+	<!-- Menu -->
+	<header th:replace ="layout/public :: menu"></header>
+
+	<!-- Object Fondos -->
+	<div class="container text-center my-3" th:fragment="gellery">
+		<br><br><br>
+		<h2 class="font-weight-light">Portafolio</h2>
+		<div id="portafolio" class="carousel slide carousel-dark text-center" data-bs-ride="carousel">
+			
+			<!-- Objects -->
+			<div class="carousel-inner py-4" role="listbox" >
+				<div class="carousel-item active" >
+					<div class="container" >
+						<div class="row">
+							<div class="col-lg-4" th:each="obra: ${obras}">
+								<div th:replace="object/obra :: obra" >
+								</div>
+								<br><br>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div th:replace ="object/paginator_nav :: paginator"> </div>
+		</div>
+	</div>
+
+	<script th:src="@{/js/menu.js}"></script>
+	
+	<!-- Footer -->
+	<footer th:replace ="layout/public :: footer"></footer>
+
+</body >
+</html>
