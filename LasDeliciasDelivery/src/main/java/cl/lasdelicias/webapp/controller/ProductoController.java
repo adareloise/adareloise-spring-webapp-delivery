@@ -37,7 +37,6 @@ import cl.lasdelicias.webapp.models.service.IProductoService;
 import cl.lasdelicias.webapp.models.service.IUploadFileService;
 import cl.lasdelicias.webapp.util.paginator.PageRender;
 
-@Secured("ROLE_ADMIN")
 @Controller
 @RequestMapping("/producto")
 @SessionAttributes("producto")
@@ -79,6 +78,7 @@ public class ProductoController {
 		return "object/producto";
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/create/fondo")
 	public String crearFondo(Model model){
 		Producto producto = new Fondo();
@@ -87,6 +87,7 @@ public class ProductoController {
 		return "form/fondo";
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/create/bebida")
 	public String crearBebida(Model model){
 		Producto producto = new Bebida();
@@ -95,6 +96,7 @@ public class ProductoController {
 		return "form/bebida";
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@PostMapping("/save")
 	public String guardar(@Valid Producto producto, BindingResult result, Model model, @RequestParam("file") MultipartFile foto,
 			RedirectAttributes flash, SessionStatus status) {		
@@ -131,6 +133,7 @@ public class ProductoController {
 		return "redirect:/producto/listar";
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@PostMapping("/save/fondo")
 	public String guardarFondo(@Valid Producto producto,BindingResult result, Model model, @RequestParam("file") MultipartFile foto,
 								RedirectAttributes flash, SessionStatus status) {		
@@ -168,6 +171,7 @@ public class ProductoController {
 		return "redirect:/producto/listar/fondos";
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@PostMapping("/save/bebida")
 	public String guardarBebida(@Valid Producto producto, BindingResult result, Model model, @RequestParam("file") MultipartFile foto,
 			RedirectAttributes flash, SessionStatus status) {		
@@ -205,7 +209,8 @@ public class ProductoController {
 		flash.addFlashAttribute("success", mensajeFlash);
 		return "redirect:/producto/listar/bebidas";
 	}
-			
+	
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/edit/{id}")
 	public ModelAndView editar(@PathVariable(value="id") Long id, RedirectAttributes flash) {
 		Producto producto = null;
@@ -223,6 +228,7 @@ public class ProductoController {
 		return mv;
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/edit/fondo/{id}")
 	public ModelAndView editarFondo(@PathVariable(value="id") Long id, RedirectAttributes flash) {
 		Producto producto = null;
@@ -239,7 +245,8 @@ public class ProductoController {
 		
 		return mv;
 	}
-	
+
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/edit/bebida/{id}")
 	public ModelAndView editarBebida(@PathVariable(value="id") Long id, RedirectAttributes flash) {
 		Producto producto = null;
@@ -256,7 +263,8 @@ public class ProductoController {
 		
 		return mv;
 	}
-		
+	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/listar", method=RequestMethod.GET)
 	public String listar(@RequestParam(name="page", defaultValue="0") int page, Map<String, Object> model) {
 		
@@ -270,7 +278,8 @@ public class ProductoController {
 		
 		return "serv/listar_productos";
 	}
-	
+
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/listar/fondos", method=RequestMethod.GET)
 	public String listarFondos(@RequestParam(name="page", defaultValue="0") int page, Map<String, Object> model) {
 		
@@ -285,6 +294,7 @@ public class ProductoController {
 		return "serv/listar_fondos";
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/listar/bebidas", method=RequestMethod.GET)
 	public String listarBebidas(@RequestParam(name="page", defaultValue="0") int page, Map<String, Object> model) {
 		
@@ -299,7 +309,8 @@ public class ProductoController {
 		
 		return "serv/listar_bebidas";
 	}
-			
+	
+	@Secured("ROLE_ADMIN")
 	@GetMapping(value="/delete/{id}")
 	public String eliminar(@PathVariable(value="id") Long id, RedirectAttributes flash) {		
 		String redirect = null;
