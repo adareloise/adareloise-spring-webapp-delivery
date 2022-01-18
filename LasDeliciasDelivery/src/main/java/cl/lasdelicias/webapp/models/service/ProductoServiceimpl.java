@@ -91,5 +91,15 @@ public class ProductoServiceimpl implements IProductoService {
 	public Page<Bebida> findByBebida(Pageable peageble) {
 		return bebidaRepo.findByBebida(peageble);
 	}
+
+	@Override
+	public Page<Fondo> findVegan(Pageable pageable) {
+		return fondoRepo.findVegan(pageable);
+	}
+
+	@Override
+	public Page<Fondo> findTradicional(Pageable pageable) {
+		return fondoRepo.findTradicional(pageable);
+	}
 	
 }

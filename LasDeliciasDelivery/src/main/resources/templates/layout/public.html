@@ -7,7 +7,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<link th:href="@{/css/icon.css}" rel="stylesheet">
-	<link th:href="@{/css/style.css}" rel="stylesheet">	
+	<link th:href="@{/css/style.css}" rel="stylesheet">
 </head>
 
 <body>
@@ -16,7 +16,9 @@
 
 		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="#"><h4 class="text-orange">Las Delicias de la Doña</h4></a>
+				<a class="navbar-brand" href="#">
+					<h4 class="text-orange">Las Delicias de la Doña</h4>
+				</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
 					aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -24,17 +26,24 @@
 				<div class="collapse navbar-collapse" id="navbarContent">
 					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 						<li class="nav-item">
-							<a class="nav-link" href="#">Home</a>
+							<a class="nav-link" th:href="@{/}">Home</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link active" th:href="@{/menu/products}">Menú</a>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false">Menú</a>
+							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+								<li><a class="dropdown-item" th:href="@{/menu/tradicional}">Tradicional</a></li>
+								<li><a class="dropdown-item" th:href="@{/menu/vegan}">Vegan</a></li>
+								<li><a class="dropdown-item" th:href="@{/menu/bebidas}">Bebidas y Jugos</a></li>
+							</ul>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link active" href="#">Delivery</a>
 						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-								data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-shopping-cart" style="font-size:34px"></i></a>
+								data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-shopping-cart"
+									style="font-size:34px"></i></a>
 							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 								<li><a class="dropdown-item" href="#">Action</a></li>
 								<li><a class="dropdown-item" href="#">Another action</a></li>
@@ -44,7 +53,7 @@
 				</div>
 			</div>
 		</nav>
-		<div th:replace="object/status :: status"></div >
+		<div th:replace="object/status :: status"></div>
 	</header>
 
 	<!-- Footer -->

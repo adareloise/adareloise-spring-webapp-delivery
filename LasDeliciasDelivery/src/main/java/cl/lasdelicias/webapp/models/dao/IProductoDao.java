@@ -26,5 +26,12 @@ public interface IProductoDao extends PagingAndSortingRepository<Producto, Long>
 	
 	@Query("SELECT p FROM Producto p WHERE p.type = 'BEBIDA' ")
 	public Page<Bebida> findByBebida(Pageable pageable);
+	
+	@Query("SELECT p FROM Producto p WHERE p.categoria LIKE '%Vegan%' ")
+	public Page<Fondo> findVegan(Pageable pageable); 
+	
+	@Query("SELECT p FROM Producto p WHERE p.categoria NOT LIKE '%Vegan%' AND p.type = 'FONDO' ")
+	public Page<Fondo> findTradicional(Pageable pageable); 
 
+	
 }

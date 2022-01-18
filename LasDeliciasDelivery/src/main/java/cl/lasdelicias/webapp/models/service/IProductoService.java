@@ -31,6 +31,9 @@ public interface IProductoService {
 	
 	public Page<Fondo> findByFondo(Pageable peageble);
 	
-	public Page<Bebida> findByBebida(Pageable peageble);
+	public Page<Fondo> findTradicional(Pageable pageable); 
 	
+	public Page<Bebida> findByBebida(Pageable peageble);
+
+	public Page<Fondo> findVegan(Pageable pageable);
 }
